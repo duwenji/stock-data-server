@@ -27,7 +27,7 @@ class StockDataMcpServer:
     def _load_stock_data(self) -> List[Dict[str, Any]]:
         """Excelデータ分析結果から銘柄データを読み込む"""
         try:
-            analysis_path = '../data/excel_data_analysis.json'
+            analysis_path = '../excel_data_analysis.json'
             if os.path.exists(analysis_path):
                 with open(analysis_path, 'r', encoding='utf-8') as f:
                     data = json.load(f)
