@@ -1,0 +1,100 @@
+{
+  "name": "stock-data-server",
+  "version": "1.0.0",
+  "description": "MCPサーバー for stock data from data_j.xls - 銘柄コード、銘柄名、業種、規模の情報を提供",
+  "type": "stdio",
+  "command": "python",
+  "args": [
+    "${workspaceFolder}/mcp_stock_server.py"
+  ],
+  "env": {
+    "PYTHONPATH": "${workspaceFolder}"
+  },
+  "capabilities": {
+    "tools": [
+      {
+        "name": "get_stock_by_code",
+        "description": "銘柄コードで銘柄情報を検索",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "description": "銘柄コード"
+            }
+          },
+          "required": ["code"]
+        }
+      },
+      {
+        "name": "search_stocks_by_name",
+        "description": "銘柄名で銘柄を検索（部分一致）",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "検索する銘柄名"
+            }
+          },
+          "required": ["name"]
+        }
+      },
+      {
+        "name": "get_stocks_by_industry",
+        "description": "業種で銘柄をフィルタリング",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "industry": {
+              "type": "string",
+              "description": "業種名（33業種区分）"
+            }
+          },
+          "required": ["industry"]
+        }
+      },
+      {
+        "name": "get_stocks_by_size",
+        "description": "規模コードで銘柄をフィルタリング",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "size_code": {
+              "type": "integer",
+              "description": "規模コード（1-7）"
+            }
+          },
+          "required": ["size_code"]
+        }
+      },
+      {
+        "name": "get_all_stocks",
+        "description": "全銘柄のリストを取得",
+        "inputSchema": {
+          "type": "object",
+          "properties": {}
+        }
+      }
+    ],
+    "resources": [
+      {
+        "uri": "stocks://list",
+        "name": "銘柄リスト",
+        "description": "全銘柄の基本情報リスト"
+      }
+    ]
+  },
+  "configuration": {
+    "data_file": {
+      "type": "string",
+      "default": "data/data_j.xls",
+      "description": "Excelデータファイルのパス"
+    },
+    "auto_update": {
+      "type": "boolean",
+      "default": true,
+      "description": "データの自動更新を有効にする"
+    }
+  }
+}
